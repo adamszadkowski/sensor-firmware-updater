@@ -37,7 +37,6 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("io.micronaut:micronaut-http-client")
-    implementation("io.micronaut.mongodb:micronaut-mongo-sync")
     implementation("io.micronaut:micronaut-validation")
 
     implementation("javax.annotation:javax.annotation-api")
@@ -48,9 +47,6 @@ dependencies {
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("io.strikt:strikt-core")
-    testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("org.testcontainers:mongodb")
-    testImplementation("org.testcontainers:testcontainers")
 }
 
 application {
