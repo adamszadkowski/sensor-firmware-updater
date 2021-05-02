@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: info.szadkowski.sensor.firmware.updater
+testFramework: junit
+sourceLanguage: kotlin
+buildTool: gradle_kotlin
+features: [annotation-api, app-name, graalvm, gradle, http-client, junit, kotlin, kotlin-application, logback, mongo-sync, netty-server, readme, shade, testcontainers, yaml]
