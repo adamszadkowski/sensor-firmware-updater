@@ -9,7 +9,7 @@ class ResourceFirmwareRepository(
 ) : FirmwareRepository {
     private val versionsByDevice = firmwareProperties.devices
         .associateBy { it.id }
-        .mapValues { (_, v) -> v.versions.map { FirmwareVersion.of(it) } }
+        .mapValues { (_, v) -> v.versions.map { FirmwareVersion.of(it) }.sortedByDescending { it } }
 
     override fun getNewestVersionFor(device: String): FirmwareVersion? =
         versionsByDevice[device]?.first()

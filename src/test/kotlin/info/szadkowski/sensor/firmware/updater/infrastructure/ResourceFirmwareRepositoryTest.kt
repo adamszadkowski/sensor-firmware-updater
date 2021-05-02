@@ -15,6 +15,10 @@ import javax.inject.Inject
 @PropertySource(
     Property(name = "firmware.devices[0].id", value = "a-1"),
     Property(name = "firmware.devices[0].versions[0]", value = "0.1"),
+    Property(name = "firmware.devices[1].id", value = "a-2"),
+    Property(name = "firmware.devices[1].versions[0]", value = "0.1"),
+    Property(name = "firmware.devices[1].versions[1]", value = "0.2"),
+    Property(name = "firmware.devices[1].versions[2]", value = "1.0"),
 )
 class ResourceFirmwareRepositoryTest(
     @Inject val repository: FirmwareRepository,
@@ -32,5 +36,12 @@ class ResourceFirmwareRepositoryTest(
         val version = repository.getNewestVersionFor("a-1")
 
         expectThat(version).isEqualTo(FirmwareVersion(0, 1))
+    }
+
+    @Test
+    fun `find newest version for device`() {
+        val version = repository.getNewestVersionFor("a-2")
+
+        expectThat(version).isEqualTo(FirmwareVersion(1, 0))
     }
 }
