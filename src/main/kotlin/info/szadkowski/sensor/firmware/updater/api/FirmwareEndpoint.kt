@@ -16,7 +16,7 @@ class FirmwareEndpoint(
     @Get(uri = "/firmware/{device}", produces = ["application/octet-stream"])
     fun firmware(
         device: String,
-        @Header(name = "x-ESP8266-version") version: String,
+        @Header("x-ESP8266-version") version: String,
     ): HttpResponse<Any> {
         val newestFirmware = firmwareRepository.getNewestFirmwareFor(device)
         val newestVersion = newestFirmware?.version
