@@ -15,7 +15,7 @@ import javax.inject.Inject
 @MicronautTest
 @PropertySource(
     Property(name = "firmware.devices[0].id", value = "a-1"),
-    Property(name = "firmware.devices[0].versions[0]", value = "0.2"),
+    Property(name = "firmware.devices[0].versions[0].version", value = "0.2"),
 )
 class FirmwareEndpointTest(
     @Inject private val client: FirmwareClient,

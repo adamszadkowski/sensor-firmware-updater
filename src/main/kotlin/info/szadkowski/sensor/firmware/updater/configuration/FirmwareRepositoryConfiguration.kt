@@ -22,6 +22,10 @@ class FirmwareProperties {
 
     class Device {
         val id: String = ""
-        val versions: List<String> = emptyList()
+        val versions: List<Version> = emptyList()
+
+        class Version {
+            val version: String = ""
+        }
     }
 }
