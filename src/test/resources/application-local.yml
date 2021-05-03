@@ -1,0 +1,6 @@
+firmware:
+  devices:
+    - id: "a-1"
+      versions:
+        - version: "0.2"
+          content: "abc"

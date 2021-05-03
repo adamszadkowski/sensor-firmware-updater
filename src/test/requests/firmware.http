@@ -1,0 +1,4 @@
+### Get firmware
+
+GET http://localhost:8080/firmware/a-1
+x-ESP8266-version: 0.1
