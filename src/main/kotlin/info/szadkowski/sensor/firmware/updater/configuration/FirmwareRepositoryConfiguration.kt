@@ -26,6 +26,7 @@ class FirmwareProperties {
 
         class Version {
             val version: String = ""
+            val content: String = ""
         }
     }
 }

@@ -18,7 +18,7 @@ class FirmwareEndpoint(
         device: String,
         @Header(name = "x-ESP8266-version") version: String,
     ): HttpResponse<Any> {
-        val newestVersionFor = firmwareRepository.getNewestVersionFor(device)
+        val newestVersionFor = firmwareRepository.getNewestFirmwareFor(device)?.version
         return when {
             newestVersionFor == null -> HttpResponse.notModified()
             newestVersionFor <= FirmwareVersion.of(version) -> HttpResponse.notModified()

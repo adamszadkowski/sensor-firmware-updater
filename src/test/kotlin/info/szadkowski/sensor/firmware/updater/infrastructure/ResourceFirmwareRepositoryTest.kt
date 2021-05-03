@@ -1,5 +1,6 @@
 package info.szadkowski.sensor.firmware.updater.infrastructure
 
+import info.szadkowski.sensor.firmware.updater.domain.Firmware
 import info.szadkowski.sensor.firmware.updater.domain.FirmwareRepository
 import info.szadkowski.sensor.firmware.updater.domain.model.FirmwareVersion
 import io.micronaut.context.annotation.Property
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @PropertySource(
     Property(name = "firmware.devices[0].id", value = "a-1"),
     Property(name = "firmware.devices[0].versions[0].version", value = "0.1"),
+    Property(name = "firmware.devices[0].versions[0].content", value = "content"),
     Property(name = "firmware.devices[1].id", value = "a-2"),
     Property(name = "firmware.devices[1].versions[0].version", value = "0.1"),
     Property(name = "firmware.devices[1].versions[1].version", value = "0.2"),
@@ -26,22 +28,24 @@ class ResourceFirmwareRepositoryTest(
 
     @Test
     fun `missing device`() {
-        val version = repository.getNewestVersionFor("a-0")
+        val version = repository.getNewestFirmwareFor("a-0")
 
         expectThat(version).isNull()
     }
 
     @Test
     fun `find single version for device`() {
-        val version = repository.getNewestVersionFor("a-1")
+        val firmware = repository.getNewestFirmwareFor("a-1")
 
-        expectThat(version).isEqualTo(FirmwareVersion(0, 1))
+        expectThat(firmware).isEqualTo(
+            Firmware(FirmwareVersion(0, 1), "content".toByteArray())
+        )
     }
 
     @Test
     fun `find newest version for device`() {
-        val version = repository.getNewestVersionFor("a-2")
+        val firmware = repository.getNewestFirmwareFor("a-2")
 
-        expectThat(version).isEqualTo(FirmwareVersion(1, 0))
+        expectThat(firmware?.version).isEqualTo(FirmwareVersion(1, 0))
     }
 }
