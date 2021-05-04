@@ -8,6 +8,7 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Header
 import io.micronaut.http.server.types.files.StreamedFile
+import java.math.BigInteger
 import javax.inject.Inject
 
 @Controller
@@ -30,7 +31,9 @@ class FirmwareEndpoint(
                     newestFirmware.content.inputStream(),
                     MediaType.APPLICATION_OCTET_STREAM_TYPE
                 ).attach("firmware.bin")
-            )
+            ).header("x-MD5", newestFirmware.md5.serialize())
         }
     }
+
+    private fun ByteArray.serialize() = BigInteger(1, this).toString(16).padStart(32, '0')
 }

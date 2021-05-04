@@ -45,6 +45,7 @@ class FirmwareEndpointTest(
         expectThat(firmware.status()).isEqualTo(HttpStatus.OK)
         expectThat(firmware.body()).isEqualTo("content".toByteArray())
         expectThat(firmware.header("Content-Disposition")).contains("""filename="firmware.bin"""")
+        expectThat(firmware.header("x-MD5")).contains("9a0364b9e99bb480dd25e1f0284c8555")
     }
 
     @Client("/")
