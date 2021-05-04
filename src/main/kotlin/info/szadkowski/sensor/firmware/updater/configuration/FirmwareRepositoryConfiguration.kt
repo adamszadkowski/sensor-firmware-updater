@@ -4,6 +4,7 @@ import info.szadkowski.sensor.firmware.updater.domain.FirmwareRepository
 import info.szadkowski.sensor.firmware.updater.infrastructure.ResourceFirmwareRepository
 import io.micronaut.context.annotation.ConfigurationProperties
 import io.micronaut.context.annotation.Factory
+import io.micronaut.core.io.scan.ClassPathResourceLoader
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,7 +14,8 @@ class FirmwareRepositoryConfiguration(
 ) {
 
     @Singleton
-    fun firmwareRepository(): FirmwareRepository = ResourceFirmwareRepository(firmwareProperties)
+    fun firmwareRepository(resourceLoader: ClassPathResourceLoader): FirmwareRepository =
+        ResourceFirmwareRepository(resourceLoader, firmwareProperties)
 }
 
 @ConfigurationProperties("firmware")
@@ -26,7 +28,7 @@ class FirmwareProperties {
 
         class Version {
             val version: String = ""
-            val content: String = ""
+            val path: String = ""
         }
     }
 }

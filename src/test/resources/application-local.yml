@@ -3,4 +3,4 @@ firmware:
     - id: "a-1"
       versions:
         - version: "0.2"
-          content: "abc"
+          path: "firmwares/a-1-resource/0.2.txt"

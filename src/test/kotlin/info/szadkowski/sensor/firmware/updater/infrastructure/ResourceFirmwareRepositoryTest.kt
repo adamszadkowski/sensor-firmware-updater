@@ -17,7 +17,7 @@ import javax.inject.Inject
 @PropertySource(
     Property(name = "firmware.devices[0].id", value = "a-1"),
     Property(name = "firmware.devices[0].versions[0].version", value = "0.1"),
-    Property(name = "firmware.devices[0].versions[0].content", value = "content"),
+    Property(name = "firmware.devices[0].versions[0].path", value = "firmwares/a-1-resource/0.1.txt"),
     Property(name = "firmware.devices[1].id", value = "a-2"),
     Property(name = "firmware.devices[1].versions[0].version", value = "0.1"),
     Property(name = "firmware.devices[1].versions[1].version", value = "0.2"),
@@ -38,7 +38,7 @@ class ResourceFirmwareRepositoryTest(
     fun `find single version for device`() {
         val firmware = repository.getNewestFirmwareFor("a-1")
 
-        val content = "content".toByteArray()
+        val content = "firmware binary".toByteArray()
         expectThat(firmware).isEqualTo(
             Firmware(
                 version = FirmwareVersion(major = 0, minor = 1),
