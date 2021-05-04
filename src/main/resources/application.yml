@@ -5,3 +5,11 @@ micronaut:
     port: 80
   metrics:
     enabled: true
+    export:
+      prometheus:
+        enabled: true
+        step: PT1M
+        descriptions: true
+endpoints:
+  prometheus:
+    sensitive: false

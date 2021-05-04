@@ -44,6 +44,7 @@ dependencies {
     implementation("io.micronaut.micrometer:micronaut-micrometer-core")
     implementation("io.micronaut.micrometer:micronaut-micrometer-registry-statsd")
     implementation("io.micronaut:micronaut-management")
+    implementation("io.micronaut.micrometer:micronaut-micrometer-registry-prometheus")
 
     compileOnly("org.graalvm.nativeimage:svm")
 
