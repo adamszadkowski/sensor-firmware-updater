@@ -4,6 +4,8 @@ import info.szadkowski.sensor.firmware.updater.domain.model.FirmwareVersion
 
 interface FirmwareRepository {
     fun getNewestFirmwareFor(device: String): Firmware?
+
+    class MissingPathException(message: String) : RuntimeException(message)
 }
 
 data class Firmware(

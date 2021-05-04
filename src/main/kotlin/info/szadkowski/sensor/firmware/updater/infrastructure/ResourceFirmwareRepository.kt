@@ -15,6 +15,15 @@ class ResourceFirmwareRepository(
 
     private val versionsByDevice = firmwareProperties.devices.associateBy { it.id }
 
+    init {
+        val missingPaths = firmwareProperties.devices
+            .flatMap { it.versions }
+            .map { it.path }
+            .filter { resourceLoader.getResource(it).isEmpty }
+        if (missingPaths.isNotEmpty())
+            throw FirmwareRepository.MissingPathException(missingPaths.joinToString(", "))
+    }
+
     override fun getNewestFirmwareFor(device: String): Firmware? = versionsByDevice[device]
         ?.versions
         ?.map { it.toDomain() }
