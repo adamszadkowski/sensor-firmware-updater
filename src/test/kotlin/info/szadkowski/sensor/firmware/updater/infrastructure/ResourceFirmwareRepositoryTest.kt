@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNull
+import java.security.MessageDigest
 import javax.inject.Inject
 
 @MicronautTest
@@ -37,10 +38,12 @@ class ResourceFirmwareRepositoryTest(
     fun `find single version for device`() {
         val firmware = repository.getNewestFirmwareFor("a-1")
 
+        val content = "content".toByteArray()
         expectThat(firmware).isEqualTo(
             Firmware(
                 version = FirmwareVersion(major = 0, minor = 1),
-                content = "content".toByteArray(),
+                content = content,
+                md5 = content.md5(),
             )
         )
     }
@@ -51,4 +54,6 @@ class ResourceFirmwareRepositoryTest(
 
         expectThat(firmware?.version).isEqualTo(FirmwareVersion(1, 0))
     }
+
+    private fun ByteArray.md5() = MessageDigest.getInstance("MD5").digest(this)
 }
