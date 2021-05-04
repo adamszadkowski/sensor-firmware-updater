@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: sensorFirmwareUpdater
+    name: sensor-firmware-updater
   server:
     port: 80
   metrics:
