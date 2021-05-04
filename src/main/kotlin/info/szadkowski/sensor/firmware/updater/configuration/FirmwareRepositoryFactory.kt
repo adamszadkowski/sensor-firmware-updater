@@ -9,7 +9,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Factory
-class FirmwareRepositoryConfiguration(
+class FirmwareRepositoryFactory(
     @Inject val firmwareProperties: FirmwareProperties,
 ) {
 
