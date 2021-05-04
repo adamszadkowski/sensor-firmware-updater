@@ -10,6 +10,7 @@ import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
+import strikt.assertions.contains
 import strikt.assertions.isEqualTo
 import javax.inject.Inject
 
@@ -43,6 +44,7 @@ class FirmwareEndpointTest(
 
         expectThat(firmware.status()).isEqualTo(HttpStatus.OK)
         expectThat(firmware.body()).isEqualTo("content".toByteArray())
+        expectThat(firmware.header("Content-Disposition")).contains("""filename="firmware.bin"""")
     }
 
     @Client("/")

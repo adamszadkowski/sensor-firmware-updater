@@ -29,7 +29,7 @@ class FirmwareEndpoint(
                 StreamedFile(
                     newestFirmware.content.inputStream(),
                     MediaType.APPLICATION_OCTET_STREAM_TYPE
-                )
+                ).attach("firmware.bin")
             )
         }
     }
