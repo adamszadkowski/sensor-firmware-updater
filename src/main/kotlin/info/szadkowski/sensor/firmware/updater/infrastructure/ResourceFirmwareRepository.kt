@@ -13,14 +13,12 @@ class ResourceFirmwareRepository(
 ) : FirmwareRepository {
     private val md5MessageDigest = MessageDigest.getInstance("MD5")
 
-    private val versionsByDevice = firmwareProperties.devices
-        .associateBy { it.id }
-        .mapValues { (_, v) ->
-            v.versions.map { it.toDomain() }.sortedByDescending { it.version }
-        }
+    private val versionsByDevice = firmwareProperties.devices.associateBy { it.id }
 
-    override fun getNewestFirmwareFor(device: String): Firmware? =
-        versionsByDevice[device]?.first()
+    override fun getNewestFirmwareFor(device: String): Firmware? = versionsByDevice[device]
+        ?.versions
+        ?.map { it.toDomain() }
+        ?.maxByOrNull { it.version }
 
     private fun FirmwareProperties.Device.Version.toDomain(): Firmware {
         val content = resourceLoader.getResourceAsStream(path).map { it.readAllBytes() }.orElse(ByteArray(0))
