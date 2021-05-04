@@ -38,7 +38,10 @@ class ResourceFirmwareRepositoryTest(
         val firmware = repository.getNewestFirmwareFor("a-1")
 
         expectThat(firmware).isEqualTo(
-            Firmware(FirmwareVersion(0, 1), "content".toByteArray())
+            Firmware(
+                version = FirmwareVersion(major = 0, minor = 1),
+                content = "content".toByteArray(),
+            )
         )
     }
 
