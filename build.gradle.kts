@@ -41,6 +41,10 @@ dependencies {
 
     implementation("javax.annotation:javax.annotation-api")
 
+    implementation("io.micronaut.micrometer:micronaut-micrometer-core")
+    implementation("io.micronaut.micrometer:micronaut-micrometer-registry-statsd")
+    implementation("io.micronaut:micronaut-management")
+
     compileOnly("org.graalvm.nativeimage:svm")
 
     runtimeOnly("ch.qos.logback:logback-classic")

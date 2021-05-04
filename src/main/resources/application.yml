@@ -3,3 +3,5 @@ micronaut:
     name: sensorFirmwareUpdater
   server:
     port: 80
+  metrics:
+    enabled: true
