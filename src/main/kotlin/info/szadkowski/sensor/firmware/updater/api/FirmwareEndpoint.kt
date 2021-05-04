@@ -3,9 +3,11 @@ package info.szadkowski.sensor.firmware.updater.api
 import info.szadkowski.sensor.firmware.updater.domain.FirmwareRepository
 import info.szadkowski.sensor.firmware.updater.domain.model.FirmwareVersion
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Header
+import io.micronaut.http.server.types.files.StreamedFile
 import javax.inject.Inject
 
 @Controller
@@ -17,13 +19,18 @@ class FirmwareEndpoint(
     fun firmware(
         device: String,
         @Header("x-ESP8266-version") version: String,
-    ): HttpResponse<Any> {
+    ): HttpResponse<StreamedFile> {
         val newestFirmware = firmwareRepository.getNewestFirmwareFor(device)
         val newestVersion = newestFirmware?.version
         return when {
             newestVersion == null -> HttpResponse.notModified()
             newestVersion <= FirmwareVersion.of(version) -> HttpResponse.notModified()
-            else -> HttpResponse.ok(newestFirmware.content)
+            else -> HttpResponse.ok(
+                StreamedFile(
+                    newestFirmware.content.inputStream(),
+                    MediaType.APPLICATION_OCTET_STREAM_TYPE
+                )
+            )
         }
     }
 }
