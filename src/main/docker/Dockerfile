@@ -18,4 +18,6 @@ RUN apk update && apk add libstdc++
 
 COPY --from=graalvm /src/application /app/application
 
+EXPOSE 80
+
 ENTRYPOINT ["/app/application"]
