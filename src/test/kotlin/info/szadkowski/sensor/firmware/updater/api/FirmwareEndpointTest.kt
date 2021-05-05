@@ -17,7 +17,7 @@ import javax.inject.Inject
 @MicronautTest
 @PropertySource(
     Property(name = "firmware.devices[0].id", value = "a-1"),
-    Property(name = "firmware.devices[0].versions[0].version", value = "0.2"),
+    Property(name = "firmware.devices[0].versions[0].version", value = "0.2.0"),
     Property(name = "firmware.devices[0].versions[0].path", value = "firmwares/a-1-resource/0.2.txt"),
 )
 class FirmwareEndpointTest(
@@ -26,21 +26,21 @@ class FirmwareEndpointTest(
 
     @Test
     fun `not found version is marked as not modified`() {
-        val firmware = client.firmware(device = "a-0", "0.1")
+        val firmware = client.firmware(device = "a-0", "0.1.0")
 
         expectThat(firmware.status()).isEqualTo(HttpStatus.NOT_MODIFIED)
     }
 
     @Test
     fun `same version is marked as not modified`() {
-        val firmware = client.firmware(device = "a-1", version = "0.2")
+        val firmware = client.firmware(device = "a-1", version = "0.2.0")
 
         expectThat(firmware.status()).isEqualTo(HttpStatus.NOT_MODIFIED)
     }
 
     @Test
     fun `return newer firmware`() {
-        val firmware = client.firmware(device = "a-1", version = "0.1")
+        val firmware = client.firmware(device = "a-1", version = "0.1.0")
 
         expectThat(firmware.status()).isEqualTo(HttpStatus.OK)
         expectThat(firmware.body()).isEqualTo("content".toByteArray())
