@@ -13,3 +13,10 @@ micronaut:
 endpoints:
   prometheus:
     sensitive: false
+
+firmware:
+  devices:
+    - id: "ONE"
+      versions:
+        - version: "0.8.4"
+          path: "firmwares/ONE/0.8.4.bin"
