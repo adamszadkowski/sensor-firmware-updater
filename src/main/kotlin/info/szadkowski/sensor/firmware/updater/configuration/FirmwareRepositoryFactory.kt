@@ -2,6 +2,7 @@ package info.szadkowski.sensor.firmware.updater.configuration
 
 import info.szadkowski.sensor.firmware.updater.domain.FirmwareRepository
 import info.szadkowski.sensor.firmware.updater.infrastructure.ResourceFirmwareRepository
+import io.micronaut.context.annotation.ConfigurationInject
 import io.micronaut.context.annotation.ConfigurationProperties
 import io.micronaut.context.annotation.Context
 import io.micronaut.context.annotation.Factory
@@ -21,16 +22,16 @@ class FirmwareRepositoryFactory(
 
 @Context
 @ConfigurationProperties("firmware")
-class FirmwareProperties {
-    var devices: List<Device> = emptyList()
-
-    class Device {
-        var id: String = ""
-        var versions: List<Version> = emptyList()
-
-        class Version {
-            var version: String = ""
-            var path: String = ""
-        }
+data class FirmwareProperties @ConfigurationInject constructor(
+    val devices: List<Device>,
+) {
+    data class Device @ConfigurationInject constructor(
+        val id: String,
+        val versions: List<Version>,
+    ) {
+        data class Version @ConfigurationInject constructor(
+            val version: String,
+            val path: String,
+        )
     }
 }
