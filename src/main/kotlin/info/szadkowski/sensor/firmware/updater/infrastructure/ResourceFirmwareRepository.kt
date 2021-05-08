@@ -14,7 +14,7 @@ class ResourceFirmwareRepository(
     private val md5MessageDigest = MessageDigest.getInstance("MD5")
 
     private val pathsByDevices = devices
-        .associateBy { it.id }
+        .associateBy { it.id.toLowerCase() }
         .mapValues { (_, v) ->
             v.versionToPath
                 .map { (version, path) -> FirmwareMetadata(FirmwareVersion.of(version), path) }
@@ -29,7 +29,7 @@ class ResourceFirmwareRepository(
             throw FirmwareRepository.MissingPathException(missingPaths.joinToString(", "))
     }
 
-    override fun getNewestFirmwareFor(device: String): Firmware? = pathsByDevices[device]?.toDomain()
+    override fun getNewestFirmwareFor(device: String): Firmware? = pathsByDevices[device.toLowerCase()]?.toDomain()
 
     private fun FirmwareMetadata.toDomain(): Firmware {
         val content = resourceLoader.getResourceAsStream(path).map { it.readAllBytes() }.orElse(ByteArray(0))

@@ -19,6 +19,10 @@ import javax.inject.Inject
     Property(name = "firmware.devices.a-2.version-to-path[0.1.0]", value = "may-not-exist.txt"),
     Property(name = "firmware.devices.a-2.version-to-path[0.2.0]", value = "may-not-exist.txt"),
     Property(name = "firmware.devices.a-2.version-to-path[1.0.0]", value = "firmwares/a-1-resource/0.1.txt"),
+    Property(
+        name = "firmware.devices.Case-Insensitive.version-to-path[1.0.0]",
+        value = "firmwares/a-1-resource/0.1.txt"
+    ),
 )
 class ResourceFirmwareRepositoryTest(
     @Inject val repository: FirmwareRepository,
@@ -48,6 +52,13 @@ class ResourceFirmwareRepositoryTest(
     @Test
     fun `find newest version for device`() {
         val firmware = repository.getNewestFirmwareFor("a-2")
+
+        expectThat(firmware?.version).isEqualTo(FirmwareVersion(1, 0, 0))
+    }
+
+    @Test
+    fun `find device by case insensitive name`() {
+        val firmware = repository.getNewestFirmwareFor("CASE-insensitive")
 
         expectThat(firmware?.version).isEqualTo(FirmwareVersion(1, 0, 0))
     }
