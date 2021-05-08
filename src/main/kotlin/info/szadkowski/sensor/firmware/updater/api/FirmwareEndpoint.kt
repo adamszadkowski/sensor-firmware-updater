@@ -9,6 +9,7 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Header
 import io.micronaut.http.server.types.files.StreamedFile
 import java.math.BigInteger
+import java.time.Instant
 import javax.inject.Inject
 
 @Controller
@@ -29,7 +30,9 @@ class FirmwareEndpoint(
             else -> HttpResponse.ok(
                 StreamedFile(
                     newestFirmware.content.inputStream(),
-                    MediaType.APPLICATION_OCTET_STREAM_TYPE
+                    MediaType.APPLICATION_OCTET_STREAM_TYPE,
+                    Instant.now().toEpochMilli(),
+                    newestFirmware.content.size.toLong(),
                 ).attach("firmware.bin")
             ).header("x-MD5", newestFirmware.md5.serialize())
         }
