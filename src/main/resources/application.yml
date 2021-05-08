@@ -16,7 +16,6 @@ endpoints:
 
 firmware:
   devices:
-    - id: "ONE"
-      versions:
-        - version: "0.8.4"
-          path: "firmwares/ONE/0.8.4.bin"
+    ONE:
+      version-to-path:
+        "0.8.4": "firmwares/ONE/0.8.4.bin"

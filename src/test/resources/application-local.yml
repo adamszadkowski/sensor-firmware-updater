@@ -1,6 +1,5 @@
 firmware:
   devices:
-    - id: "a-1"
-      versions:
-        - version: "0.2.0"
-          path: "firmwares/a-1-resource/0.2.txt"
+    a-1:
+      version-to-path:
+        "0.2.0": "firmwares/a-1-resource/0.2.txt"

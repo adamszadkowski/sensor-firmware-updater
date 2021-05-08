@@ -16,9 +16,7 @@ import javax.inject.Inject
 
 @MicronautTest
 @PropertySource(
-    Property(name = "firmware.devices[0].id", value = "a-1"),
-    Property(name = "firmware.devices[0].versions[0].version", value = "0.2.0"),
-    Property(name = "firmware.devices[0].versions[0].path", value = "firmwares/a-1-resource/0.2.txt"),
+    Property(name = "firmware.devices.a-1.version-to-path[0.2.0]", value = "firmwares/a-1-resource/0.2.txt"),
 )
 class FirmwareEndpointTest(
     @Inject private val client: FirmwareClient,

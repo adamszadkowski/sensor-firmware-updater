@@ -15,16 +15,10 @@ import javax.inject.Inject
 
 @MicronautTest
 @PropertySource(
-    Property(name = "firmware.devices[0].id", value = "a-1"),
-    Property(name = "firmware.devices[0].versions[0].version", value = "0.1.0"),
-    Property(name = "firmware.devices[0].versions[0].path", value = "firmwares/a-1-resource/0.1.txt"),
-    Property(name = "firmware.devices[1].id", value = "a-2"),
-    Property(name = "firmware.devices[1].versions[0].version", value = "0.1.0"),
-    Property(name = "firmware.devices[1].versions[0].path", value = "firmwares/a-1-resource/0.1.txt"),
-    Property(name = "firmware.devices[1].versions[1].version", value = "0.2.0"),
-    Property(name = "firmware.devices[1].versions[1].path", value = "firmwares/a-1-resource/0.1.txt"),
-    Property(name = "firmware.devices[1].versions[2].version", value = "1.0.0"),
-    Property(name = "firmware.devices[1].versions[2].path", value = "firmwares/a-1-resource/0.1.txt"),
+    Property(name = "firmware.devices.a-1.version-to-path[0.1.0]", value = "firmwares/a-1-resource/0.1.txt"),
+    Property(name = "firmware.devices.a-2.version-to-path[0.1.0]", value = "may-not-exist.txt"),
+    Property(name = "firmware.devices.a-2.version-to-path[0.2.0]", value = "may-not-exist.txt"),
+    Property(name = "firmware.devices.a-2.version-to-path[1.0.0]", value = "firmwares/a-1-resource/0.1.txt"),
 )
 class ResourceFirmwareRepositoryTest(
     @Inject val repository: FirmwareRepository,
